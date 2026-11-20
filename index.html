@@ -705,8 +705,7 @@
       <a href="#contacts">Контакты</a>
     </nav>
 
-    <a class="btn btn-primary"
-       data-booking
+    <a class="btn btn-primary dikidi_link"
        href="https://dikidi.ru/#widget=223068">Записаться</a>
   </div>
 </header>
@@ -729,8 +728,7 @@
 
         <div class="hero-actions">
           <a href="#services" class="btn btn-primary">Выбрать массаж</a>
-          <a class="btn btn-ghost"
-             data-booking
+          <a class="btn btn-ghost dikidi_link"
              href="https://dikidi.ru/#widget=223068">Записаться онлайн</a>
         </div>
 
@@ -782,8 +780,7 @@
             <!-- ЦЕНА 1 -->
             <span class="card-price">2 500 ₽</span>
           </div>
-          <a class="btn btn-primary btn-block"
-             data-booking
+          <a class="btn btn-primary dikidi_link"
              href="https://dikidi.ru/#widget=223068">Записаться</a>
         </article>
 
@@ -801,8 +798,7 @@
             <!-- ЦЕНА 2 -->
             <span class="card-price">3 500 ₽</span>
           </div>
-          <a class="btn btn-primary btn-block"
-             data-booking
+          <a class="btn btn-primary dikidi_link"
              href="https://dikidi.ru/#widget=223068">Записаться</a>
         </article>
 
@@ -820,8 +816,7 @@
             <!-- ЦЕНА 3 -->
             <span class="card-price">2 500 ₽</span>
           </div>
-          <a class="btn btn-primary btn-block"
-             data-booking
+          <a class="btn btn-primary dikidi_link"
              href="https://dikidi.ru/#widget=223068">Записаться</a>
         </article>
 
@@ -1026,9 +1021,9 @@
             <a class="btn btn-ghost" href="tel:+79157394315">Позвонить</a>
           </div>
 
-          <a class="btn btn-primary btn-block"
+          <a class="btn btn-primary dikidi_link"
              data-booking
-             href="https://dikidi.net"
+             href="https://dikidi.ru/#widget=223068"
              target="_blank"
              rel="noopener"
              style="padding:20px 30px; font-size:15.5px;">
@@ -1171,6 +1166,32 @@ setTimeout(function() {
         }
     });
 }, 1000);
+</script>
+
+<script>
+// Принудительное открытие виджета DIKIDI во всплывающем окне по клику
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        const dikidiButtons = document.querySelectorAll('a[href*="dikidi.ru/#widget"], a[href*="dikidi.net"], .dikidi_link');
+        dikidiButtons.forEach(button => {
+            button.removeAttribute('target');
+            button.removeAttribute('rel');
+            
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (typeof dikidiWidget === 'object' && typeof dikidiWidget.show === 'function') {
+                    dikidiWidget.show();
+                } else if (typeof diKidiWidgetRecord === 'function') {
+                    diKidiWidgetRecord();
+                } else if (window.dikidi && typeof window.dikidi.showWidget === 'function') {
+                    window.dikidi.showWidget();
+                } else {
+                    window.location.href = button.getAttribute('href');
+                }
+            });
+        });
+    }, 1500);
+});
 </script>
 
 </body>
