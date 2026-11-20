@@ -1136,5 +1136,52 @@ document.querySelectorAll('a[data-booking]').forEach(function (link) {
 })();
 </script>
 
+<!-- ==========================================
+     МОДАЛЬНОЕ ОКНО: ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ
+     ========================================== -->
+<div id="policyModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; justify-content: center; align-items: center; padding: 20px;">
+    <div style="background: #FAF8F5; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 32px; border-radius: 16px; position: relative; font-family: sans-serif; font-size: 14px; line-height: 1.6; color: #2C302E;">
+        <button onclick="document.getElementById('policyModal').style.display='none'" style="position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; cursor: pointer; color: #5A5F5C;">&times;</button>
+        <h3 style="font-size: 20px; margin-bottom: 16px; font-family: serif;">Политика конфиденциальности и обработки персональных данных</h3>
+        <p>Настоящая Политика действует в отношении всех данных, которые данный сайт студии массажа Body Vita (Тверь) может получить о пользователе во время его использования.</p>
+        <h4 style="margin-top: 16px; font-weight: bold;">1. Какие данные мы НЕ собираем</h4>
+        <p>Наш сайт является исключительно информационным. Мы не размещаем формы обратной связи, не запрашиваем и не храним ваши имена, номера телефонов или платежные реквизиты. Вся запись на услуги происходит на сторонней лицензированной платформе онлайн-записи DIKIDI, которая самостоятельно обеспечивает защиту ваших данных согласно своему пользовательскому соглашению.</p>
+        <h4 style="margin-top: 16px; font-weight: bold;">2. Использование файлов Cookie и метрик</h4>
+        <p>Для улучшения работы сайта и анализа посещаемости мы можем использовать стандартные системы веб-аналитики (например, Яндекс Метрику). Эти сервисы автоматически собирают обезличенные технические данные: файлы cookie, IP-адреса, тип браузера и источник перехода. Эти данные не позволяют идентифицировать вашу личность и обрабатываются исключительно в статистических целях.</p>
+        <h4 style="margin-top: 16px; font-weight: bold;">3. Согласие пользователя</h4>
+        <p>Используя наш сайт, вы соглашаетесь с автоматическим сбором файлов cookie технологическими системами аналитики. Если вы не хотите, чтобы эти данные сохранялись, вы можете в любой момент отключить сохранение cookie в настройках вашего интернет-браузера.</p>
+    </div>
+</div>
+
+<!-- ==========================================
+     БАННЕР COOKIE (КУКИС)
+     ========================================== -->
+<div id="cookieBanner" style="display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 400px; background: #F2EDE4; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); z-index: 9999; font-family: sans-serif; font-size: 13px; color: #2C302E; justify-content: space-between; align-items: center; gap: 12px; margin-left: auto;">
+    <span style="line-height: 1.4;">Наш сайт использует файлы <a href="#" onclick="event.preventDefault(); document.getElementById('policyModal').style.display='flex';" style="text-decoration: underline; color: #6B7B6E; font-weight: 600;">cookie</a> для анализа посещаемости. Оставаясь на сайте, вы соглашаетесь с этим.</span>
+    <button onclick="localStorage.setItem('cookieAccepted', 'true'); document.getElementById('cookieBanner').style.display='none';" style="background: #6B7B6E; color: #fff; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 600; white-space: nowrap;">ОК</button>
+</div>
+
+<script>
+// Скрипт для показа баннера куки
+document.addEventListener("DOMContentLoaded", function() {
+    if (!localStorage.getItem('cookieAccepted')) {
+        document.getElementById('cookieBanner').style.display = 'flex';
+    }
+});
+
+// Находим в футере ссылку на политику и привязываем открытие окна
+setTimeout(function() {
+    const footerLinks = document.querySelectorAll('footer a, .footer a');
+    footerLinks.forEach(link => {
+        if(link.textContent.toLowerCase().includes('политик')) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('policyModal').style.display = 'flex';
+            });
+        }
+    });
+}, 1000);
+</script>
+
 </body>
 </html>
